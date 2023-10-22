@@ -18,7 +18,7 @@ pipeline {
         stage('Setup SSH Keys') {
             steps {
                 script {
-                        sh "ssh-keygen -t rsa -b 4096 -C 'wndr@DESKTOP-60LKIS1' -N '' -f test"
+                        sh "ssh-keygen -t rsa -b 4096 -C 'wndr@DESKTOP-60LKIS1' -N '' -f mykey"
                 }
             }
         }
