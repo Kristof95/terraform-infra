@@ -5,7 +5,7 @@
 		"source_ami_filter": {
 			"filters": {
 				"virtualization-type": "hvm",
-				"name": "ubuntu-minimal/images/hvm-ssd/ubuntu-jammy-22.04-amd64-minimal-*",
+				"name": "ubuntu-minimal/images/hvm-ssd/ubuntu-focal-20.04-amd64-*",
 				"root-device-type": "ebs"
 			},
 			"owners": ["099720109477"],
