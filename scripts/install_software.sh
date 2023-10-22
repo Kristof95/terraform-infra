@@ -2,7 +2,10 @@ echo "Update Repository...."
 sudo apt-get update
 
 echo "Installing nginx on AMI..."
-sudo apt-get install nginx docker.io vim lvm2 -y
+sudo apt-get install nginx docker.io vim lvm2 git node npm -y
+
+echo "Installing pm2..."
+sudo npm install pm2 -g
 
 # echo "Installing NodeJS 20 on machine..."
 # sudo apt-get install -y ca-certificates curl gnupg

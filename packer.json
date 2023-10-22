@@ -15,10 +15,18 @@
 		"ssh_username": "ubuntu",
 		"ami_name": "packer-example {{timestamp}}"
 	}],
-	"provisioners": [{
+	"provisioners": [
+		{
 		"type": "shell",
 		"scripts": [  "scripts/install_software.sh"   ],
 		"execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
 		"pause_before": "10s"
-	  }]
+	  },
+	  {
+		"type": "shell",
+		"scripts": [  "scripts/setup_nginx.sh"   ],
+		"execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+		"pause_before": "10s"
+	  }
+	]
 }
