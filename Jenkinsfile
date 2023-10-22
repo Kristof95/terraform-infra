@@ -28,7 +28,7 @@ pipeline {
               script {
                 def latestAMI = sh returnStdout: true, script: "aws ec2 describe-images --owners self --query 'sort_by(Images, &CreationDate)[0].ImageId' | tr -d '\n'"
                 echo "Latest ami id: ${latestAMI}"
-                if(latestAMI) {
+                if(latestAMI != "null") {
                    sh returnStdout: true, script: """echo 'variable \"AMI_ID\" { default = \"'${latestAMI}'\" }' > amivar.tf"""
                 } 
                 else {
