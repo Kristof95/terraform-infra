@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Spinning up the Infra') {
+        stage('Infra Provisioning') {
             steps {
                 script {
                     sh returnStdout: true, script: "terraform init && terraform validate *.tf && cat amivar.tf"
