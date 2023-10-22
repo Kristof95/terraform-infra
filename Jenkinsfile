@@ -18,10 +18,7 @@ pipeline {
         stage('Setup SSH Keys') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: 'mykey.pub', variable: 'SSH_PUBLIC_KEY')]) {
-                        sh "echo $SSH_PUBLIC_KEY > mykey.pub"
-                        sh "cat mykey.pub"
-                    }
+                        sh "ssh-keygen -t rsa -b 4096 -C 'wndr@DESKTOP-60LKIS1' -N '' -f test"
                 }
             }
         }
