@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     sh returnStdout: true, script: '''
-                       TF_FILES=`(ls -1 | grep tf)
+                       TF_FILES=(`ls -1 | grep tf`)
                        for item in ${TF_FILES[@]};do terraform validate \"$item\";done`
                        terraform plan -out output.tf
                     '''
