@@ -1,0 +1,24 @@
+{
+	"builders": [{
+		"type": "amazon-ebs",
+		"profile": "default",
+		"source_ami_filter": {
+			"filters": {
+				"virtualization-type": "hvm",
+				"name": "ubuntu-minimal/images/hvm-ssd/ubuntu-jammy-22.04-amd64-minimal-*",
+				"root-device-type": "ebs"
+			},
+			"owners": ["099720109477"],
+			"most_recent": true
+		},
+		"instance_type": "t2.micro",
+		"ssh_username": "ubuntu",
+		"ami_name": "packer-example {{timestamp}}"
+	}],
+	"provisioners": [{
+		"type": "shell",
+		"scripts": [  "scripts/install_software.sh"   ],
+		"execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+		"pause_before": "10s"
+	  }]
+}
