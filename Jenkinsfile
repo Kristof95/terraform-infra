@@ -10,6 +10,7 @@ pipeline {
     stages {
         stage('Checkout Terraform Sources') {
             steps {
+                deleteDir()
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Kristof95/terraform-infra.git']])
             }
         }
@@ -36,7 +37,10 @@ pipeline {
         stage('Infra Provisioning') {
             steps {
                 script {
-                    sh returnStdout: true, script: "terraform init && terraform validate *.tf && cat amivar.tf"
+                    sh returnStdout: true, script: '''
+                       TF_FILES=`(ls -1 | grep tf)
+                       for item in ${TF_FILES[@]};do terraform validate \"$item\";done`
+                    '''
                 }
             }
         }
