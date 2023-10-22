@@ -8,3 +8,7 @@ resource "aws_instance" "example" {
 
   key_name = aws_key_pair.example-keypair.key_name
 }
+
+output "instance_public_ip" {
+  value = "${aws_instance.example.public_ip}"
+}

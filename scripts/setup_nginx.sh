@@ -2,9 +2,9 @@
 git clone https://github.com/Kristof95/example-app.git
 
 groupadd node-demo
-useradd -d /example-app -s "/bin/false" -g node-demo node-demo
+useradd -d /home/ubuntu/example-app -s "/bin/false" -g node-demo node-demo
 
-chown -R "node-demo:node-demo" /example-app
+chown -R "node-demo:node-demo" /home/ubuntu/example-app
 
 echo '''user www-data;
 worker_processes auto;
@@ -27,4 +27,4 @@ http {
 sudo cat /tmp/nginx.conf > /etc/nginx/nginx.conf
 
 sudo systemctl restart nginx && sudo systemctl status nginx
-cd example-app && sudo pm2 start app.js
+cd /home/ubuntu/example-app && sudo npm install --save && sudo pm2 start app.js
