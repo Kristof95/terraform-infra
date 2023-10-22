@@ -3,9 +3,9 @@ variable "AWS_REGION" {
 }
 
 variable "PATH_TO_PRIVATE_KEY" {
-  default = "/home/jenkins/keys/mykey"
+  default = "./keys/mykey"
 }
 
 variable "PATH_TO_PUBLIC_KEY" {
-  default = "/home/jenkins/keys/mykey.pub"
+  default = "./keys/mykey.pub"
 }
