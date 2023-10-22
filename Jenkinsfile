@@ -3,10 +3,6 @@ pipeline {
         label 'Monster'
     }
 
-    tools {
-        nodejs 'NodeJS 21.0.0'
-    }
-
     stages {
         stage('Checkout Terraform Sources') {
             steps {
@@ -14,14 +10,6 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Kristof95/terraform-infra.git']])
             }
         }
-
-        // stage('Setup SSH Keys') {
-        //     steps {
-        //         script {
-        //             sh "ssh-keygen -t rsa -b 4096 -N '' -f mykey"
-        //         }
-        //     }
-        // }
 
         stage('Prepare AMI') {
             steps {
