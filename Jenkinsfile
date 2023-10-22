@@ -20,6 +20,7 @@ pipeline {
                 script {
                     withCredentials([file(credentialsId: 'mykey.pub', variable: 'SSH_PUBLIC_KEY')]) {
                         sh "echo $SSH_PUBLIC_KEY > mykey.pub"
+                        sh "cat mykey.pub"
                     }
                 }
             }
