@@ -47,7 +47,8 @@ pipeline {
                     sh returnStdout: true, script: '''
                        terraform init
                        ls -1 | grep tf | terraform validate
-                       terraform plan -out output.tf
+                       terraform plan -out plan.out
+                       terraform apply plan.out
                     '''
                 }
             }
