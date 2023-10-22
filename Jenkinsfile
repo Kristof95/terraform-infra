@@ -15,10 +15,12 @@ pipeline {
             }
         }
 
-        stage('Generate Keys') {
+        stage('Setup SSH Keys') {
             steps {
                 script {
-                    sh "yes '' | ssh-keygen -f mykey -N '' > /dev/null"
+                    withCredentials([file(credentialsId: 'mykey.pub', variable: 'SSH_PUBLIC_KEY')]) {
+                        sh "echo $SSH_PUBLIC_KEY > mykey.pub"
+                    }
                 }
             }
         }
