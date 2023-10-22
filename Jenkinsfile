@@ -26,8 +26,8 @@ pipeline {
         stage('Prepare AMI') {
             steps {
               script {
-                def latestAMI = sh returnStdout: true, script: 'aws ec2 describe-images --owners self --query "sort_by(Images, &CreationDate)[0].ImageId"'''
-                echo "${latestAMI}"
+                def latestAMI = sh returnStdout: true, script: "aws ec2 describe-images --owners self --query 'sort_by(Images, &CreationDate)[0].ImageId' | xargs"
+                echo "Latest ami id: ${latestAMI}"
                 if(latestAMI) {
                    sh returnStdout: true, script: """echo 'variable \"AMI_ID\" { default = \"'${latestAMI}'\" }' > amivar.tf"""
                 } 
