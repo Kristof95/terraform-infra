@@ -23,7 +23,7 @@ resource "aws_security_group" "example-instance" {
         content {
             from_port = ingress.value
             to_port = ingress.value
-            cidr_blocks = ["${chomp(data.http.myip.body)}/32"]
+            cidr_blocks = ["0.0.0.0/0"]
             protocol = "tcp"
         }
     }
