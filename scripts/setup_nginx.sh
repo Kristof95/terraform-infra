@@ -30,4 +30,20 @@ sudo systemctl restart nginx && sudo systemctl status nginx
 cd /home/ubuntu/example-app || true
 sudo npm install --save || true
 sudo chown -R "node-demo:node-demo" /home/ubuntu/example-app || true
-sudo pm2 start app.js || true
+
+echo '[Service]
+ExecStart=/usr/bin/nodejs /home/ubuntu/example-app
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node-demo
+User=node-demo
+Group=node-demo
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi.user.target' > /tmp/node-demo.service
+sudo cat /tmp/node-demo.service /etc/systemd/system/node-demo.service
+
+sudo systemctl enable node-demo
+sudo systemctl start node-demo
