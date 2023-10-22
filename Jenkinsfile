@@ -23,13 +23,18 @@ pipeline {
             }
         }
 
-        stage('Build AMI') {
+        stage('Prepare AMI') {
             steps {
               script {
-                sh returnStdout: true, script: '''
-                    ARTIFACT=`packer build -machine-readable packer.json |awk -F, \'$0 ~/artifact,0,id/ {print $6}\'`
-                    AMI_ID=`echo $ARTIFACT | cut -d \':\' -f2`
-                    echo \'variable "AMI_ID" { default = "\'${AMI_ID}\'" }\' > amivar.tf'''
+                def latestAMI = sh returnStdout: true, script "aws ec2 describe-images --owners self --query 'sort_by(Images, &CreationDate)[0].ImageId' | xargs"
+                if(latestAMI) {
+                    sh returnStdout: true, script: "echo \'variable \"AMI_ID\" { default = \"${latestAMI}\" }\' > amivar.tf"
+                } else {
+                    sh returnStdout: true, script: '''
+                        ARTIFACT=`packer build -machine-readable packer.json |awk -F, \'$0 ~/artifact,0,id/ {print $6}\'`
+                        AMI_ID=`echo $ARTIFACT | cut -d \':\' -f2`
+                        echo \'variable "AMI_ID" { default = "\'${AMI_ID}\'" }\' > amivar.tf'''
+                }
               }
             }
         }
@@ -40,6 +45,7 @@ pipeline {
                     sh returnStdout: true, script: '''
                        TF_FILES=`(ls -1 | grep tf)
                        for item in ${TF_FILES[@]};do terraform validate \"$item\";done`
+                       terraform plan -out output.tf
                     '''
                 }
             }
