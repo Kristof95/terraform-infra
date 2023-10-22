@@ -27,4 +27,7 @@ http {
 sudo cat /tmp/nginx.conf > /etc/nginx/nginx.conf
 
 sudo systemctl restart nginx && sudo systemctl status nginx
-cd /home/ubuntu/example-app && sudo npm install --save && sudo pm2 start app.js
+cd /home/ubuntu/example-app || true
+sudo npm install --save || true
+sudo chown -R "node-demo:node-demo" /home/ubuntu/example-app || true
+sudo pm2 start app.js || true
