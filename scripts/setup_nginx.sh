@@ -44,5 +44,6 @@ Environment=NODE_ENV=production
 WantedBy=multi.user.target''' > /tmp/node-demo.service
 sudo cat /tmp/node-demo.service > /etc/systemd/system/node-demo.service
 
+
+sudo systemctl daemon-reload
 sudo systemctl enable node-demo
-sudo systemctl start node-demo
