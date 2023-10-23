@@ -32,7 +32,7 @@ sudo npm install --save || true
 sudo chown -R "node-demo:node-demo" /home/ubuntu/example-app || true
 
 echo '''[Service]
-ExecStart=/usr/bin/nodejs /home/ubuntu/example-app
+ExecStart=/usr/bin/nodejs /home/ubuntu/example-app/app.js
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
