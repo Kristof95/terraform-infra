@@ -21,9 +21,8 @@ pipeline {
                   stdout = sh returnStdout: true, script: """echo 'variable \"AMI_ID\" { default = \"'${latestAMI}'\" }' > amivar.tf"""
                 } 
                 else {
-                   sh returnStdout: true, script: '''
-                        ARTIFACT=`packer build -machine-readable packer.json |awk -F, \'$0 ~/artifact,0,id/ {print $6}\'`
-                        AMI_ID=`echo $ARTIFACT | cut -d \':\' -f2`
+                   sh returnStdout: true, script: '''packer build -machine-readable packer.json
+                        AMI_ID=`aws ec2 describe-images --owners self --query 'sort_by(Images, &CreationDate)[0].ImageId' | tr -d '\n'`
                         echo \'variable "AMI_ID" { default = "\'${AMI_ID}\'" }\' > amivar.tf'''
                 }
               }
@@ -42,6 +41,5 @@ pipeline {
                 }
             }
         }
-
     }
 }
