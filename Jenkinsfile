@@ -23,7 +23,7 @@ pipeline {
                 else {
                    sh returnStdout: true, script: '''packer build -machine-readable packer.json
                         AMI_ID=`aws ec2 describe-images --owners self --query 'sort_by(Images, &CreationDate)[0].ImageId' | tr -d '\n'`
-                        echo \'variable "AMI_ID" { default = ${AMI_ID} }\' > amivar.tf'''
+                        echo \'variable "AMI_ID" { default = \"${AMI_ID}\" }\' > amivar.tf'''
                 }
               }
             }
