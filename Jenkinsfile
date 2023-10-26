@@ -1,17 +1,37 @@
+
+Boolean isBuildAmi
+
 pipeline {
     agent {
         label 'Monster'
     }
 
+    parameters {
+        booleanParam description: 'If checked, pipeline build a new AMI with packer.', name: 'build_ami'
+    }
+
     stages {
-        stage('Checkout Terraform Sources') {
+        stage('Prepare Build Context') {
             steps {
-                deleteDir()
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Kristof95/terraform-infra.git']])
+                script {
+                    deleteDir()
+                    checkout scmGit(branches: [[name: "*/${env.BRANCH_NAME}"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Kristof95/terraform-infra.git']])
+                
+                    try {
+                        isBuildAmi = Boolean.valueOf(build_ami)      
+                    } catch(MissingPropertyException e) {
+                        isBuildAmi = false
+                    }
+                }
             }
         }
 
         stage('Prepare AMI') {
+            when {
+                expression {
+                        isBuildAmi
+                    }
+                }
             steps {
               script {
                 def latestAMI = sh returnStdout: true, script: "aws ec2 describe-images --owners self --query 'sort_by(Images, &CreationDate)[0].ImageId' | tr -d '\n'"

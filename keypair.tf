@@ -1,5 +1,5 @@
-resource "aws_key_pair" "example-keypair" {
-  //Dummy key
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDXpGL/MFN+LwuIokJlRa6ET/+QvM94TytH1YPJVomQTnKDEBfyez8M9LXegVXQJQ+YWU6kpglVIxbgtXZIRVgO9MG6/h5aLB8N+l1v2kuTUvpPcS/V62iKuoteqFfwH/FFaRJc7tfQHP8bIRvcOAWPxebxJpDG7jB6sddjKrZ68TS1Kfil26sf4T22mPfgJ1Xzv7b4P8Rh0S5XI/8TDQWhMcIjQwOsKjeVitAl7hmtUDpsbgFqSwDtQL+kw4wQtW2atI3FrgJjPl8gKaOF3O9iaIc99qxRWQqaLFw5FmkWErG+xDwnSNkog+0c2d81JEpPpo6iDt6sQRHmwT45tPvdNTnXWP3p85jQFFFWhu97UAmABf/CeKEdUqeujtPh7qfzVEzDoZLhzCpvsQty2i/YZVkzyiC2yGoUzwr0xWuAn3TILzawZbD01b/7yVMqY+ol1uxiNx+Um+lX5gfPZdL1WhYO5M7jrpvPsGrpph8ptZDlVj8XdWESZJhwi9Lo7fmwoAKd9DsMb2XKiDDWzqH0lHlZeAMmd7J+uCV3NEZz9DZtuy1P3z/3Pu0sTrZu9AlFXHxR5ZYXRe0tINT/LQr/21fS6BegIOXJAdMGucHS/31rlyQHRfhDbmX8ai25Hrz/wDRyi6pkYLNY2jTzr4Zi5tGuM3CC9PCWaqtGOpjWQw== wndr@DESKTOP-60LKIS1"
-  key_name = "example-keypair"
+
+resource "aws_key_pair" "ssh-key" {
+  key_name = "ssh-key"
+  public_key = file(var.PATH_TO_PUBLIC_KEY)
 }

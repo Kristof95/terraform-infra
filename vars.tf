@@ -1,11 +1,24 @@
+variable "PATH_TO_PUBLIC_KEY" {
+    default = "keys/mykey.pub"
+}
+
+
+variable "ECS_AMIS" {
+    type = map(string)
+    default = {
+      "eu-central-1" = "ami-08a9c21394ccdff45"
+    }
+}
+
 variable "AWS_REGION" {
+  type = string
   default = "eu-central-1"
 }
 
-variable "PATH_TO_PRIVATE_KEY" {
-  default = "./keys/mykey"
+variable "ECS_INSTANCE_TYPE" {
+  default = "t2.micro"
 }
 
-variable "PATH_TO_PUBLIC_KEY" {
-  default = "./keys/mykey.pub"
+variable "AWS_ACCOUNT_ID" {
+  default = ""
 }
